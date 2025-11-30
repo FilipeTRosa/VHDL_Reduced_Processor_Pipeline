@@ -3,14 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
-entity processador_mono is
+entity processador_pipe is
 	port(
 		clock		: in std_logic;
 		reset		: in std_logic
 		
 	);
 end entity;
-architecture behavior of processador_mono is
+architecture behavior of processador_pipe is
 
 -- SINAIS DA INTRUCAO --                   
 signal inst			: std_logic_vector(19 downto 0); --saida memoria de instruções

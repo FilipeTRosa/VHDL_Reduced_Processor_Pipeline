@@ -9,7 +9,7 @@ end entity;
 architecture behavior of tb is
 
 -- componente topo (que os discentes devem fazer para a avaliação)
-component processador_mono is
+component processador_pipe is
 	port(
 			clock		: in std_logic;	
 			reset    	: in std_logic
@@ -25,7 +25,7 @@ signal reset_sg		: std_logic:= '1';
 begin
 
 -- instanciação do componente
-inst_processador_mono : processador_mono
+inst_processador_pipe : processador_pipe
 	port map(
 					clock	=> clock_sg,
 					reset	=> reset_sg
