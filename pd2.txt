@@ -1,0 +1,26 @@
+0:  LDI  $4, 1       ; Inicializa o Resultado com 1 ($4 = 1)
+1:  LW   $2, 1       ; Carrega a BASE da memória pos 1 para $2
+2:  LW   $3, 2       ; Carrega o EXPOENTE da memória pos 2 para $3
+                     ; --- INÍCIO DO LOOP (Linha 3) ---
+3:  BEQ  $0, $3, 6   ; Se Expoente ($3) == 0, pula para o fim (Linha 9)
+4:  MULT $2, $4, $6  ; $6 = $2 * $4 (Resultado = Base * Resultado)
+5:  ADD $6, $0, $4   ; add do 6 com 0 guardando no 4
+6:  SUBI $3, 1, $7   ; Decrementa o expoente ($3 = $3 - 1)
+7:  ADD $7, $0, $3   ; add do 6 com 0 guardando no 4
+8:  JMP  3           ; Volta para o teste do loop (Linha 3)
+                     ; --- FIM (Linha 7) ---
+9:  SW   $4, 3       ; Guarda o Resultado final ($4) na memória pos 3
+
+
+1011 0000 0100 00000001 --- LDI  $4, 1
+1011 0000 0010 00000010 --- LDI  $2, 2
+1011 0000 0011 00000010 --- LDI	 $3, 2
+0100 0000 0011 00000110 --- BEQ  $0, $3, 6 
+0010 0010 0100 00000110 --- MULT $2, $4, $6
+0000 0110 0000 00000100 --- ADD $6, $0, $4
+1001 0011 0111 00000001 --- SUBI $3, 1, $7
+0000 0111 0000 00000011 --- ADD $7, $0, $3
+0011 0000 0000 00000011 --- JMP  3 
+0111 0100 0000 00000011 --- SW   $4, 3 
+0110 1010 0000 00000011 --- LW $10, 3
+
