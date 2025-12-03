@@ -20,6 +20,14 @@ signal reg1			: std_logic_vector(3 downto 0);
 signal regDest		: std_logic_vector(3 downto 0);
 signal imm			: std_logic_vector(7 downto 0);
 
+-- REGISTRADORES DE PIPELINE
+
+signal IF_ID		: std_logic_vector(19 downto 0);
+signal ID_EX    	: std_logic_vector(19 downto 0);
+signal EX_MEM   	: std_logic_vector(19 downto 0);
+signal MEM_WB   	: std_logic_vector(19 downto 0);
+
+
 -- MEMORIA DE INSTRUCOES --
 type mem is array (integer range 0 to 255) of std_logic_vector(19 downto 0);
 signal memInst		: mem;
@@ -174,13 +182,17 @@ begin
     		brOut1;
      		
 	-- BUSCA INSNTRUCAO
-	inst  	<= memInst(conv_integer(PC));
+	
 
 process(clock, reset)
 	begin
 		if reset = '1' then
 			PC <= (others => '0');
 		elsif clock = '1' and clock'event then --reset 0
+			
+			--Alimentando redistradores de Pipeline--
+			IF_ID  	<= memInst(conv_integer(PC));
+			
 			--incremento do PC....
 			if (opcode = "0011") then --JMP
 				pc <= imm;
