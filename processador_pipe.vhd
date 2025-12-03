@@ -132,26 +132,26 @@ begin
     );
 
 	--separando a operação COM 20 bits	
-	opcode <= inst(19 downto 16);
+	opcode <= IF_ID(19 downto 16);
 	--tentando com when
 														-- ADD : SUB : MULT				   //   		-- BEQ e BNE			// 			 ADDI : SUBI : MULTI							//     	 SW
-	reg0 <= inst(15 downto 12) when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0100" or opcode = "0101"  or opcode = "1001" or opcode = "1010" or opcode = "1000"  or opcode = "0111" )
+	reg0 <= IF_ID(15 downto 12) when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0100" or opcode = "0101"  or opcode = "1001" or opcode = "1010" or opcode = "1000"  or opcode = "0111" )
 		else
 			(others => '0');
 	-- 												-- ADD : SUB : MULT					  //    		-- BEQ : BNE
-	reg1 <= inst(11 downto 8) when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0100" or opcode = "0101") 
+	reg1 <= IF_ID(11 downto 8) when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0100" or opcode = "0101") 
 		else
 			(others => '0');
 	--	
-	regDest <= inst(3 downto 0) when (opcode = "0000" or opcode = "0001" or opcode = "0010")  -- ADD : SUB : MULT  
+	regDest <= IF_ID(3 downto 0) when (opcode = "0000" or opcode = "0001" or opcode = "0010")  -- ADD : SUB : MULT  
 		else
-			inst(11 downto 8) when (opcode = "1000" or opcode = "1001" or opcode = "1010"  or opcode = "1011") --  ADDI : SUBI : MULTI -- LDI 
+			IF_ID(11 downto 8) when (opcode = "1000" or opcode = "1001" or opcode = "1010"  or opcode = "1011") --  ADDI : SUBI : MULTI -- LDI 
 		else
-			inst(15 downto 12) when (opcode = "0110")-- LW
+			IF_ID(15 downto 12) when (opcode = "0110")-- LW
 		else
 			(others => '0');
 	-- 									JMP			//  		-- BEQ : BNE			//				 -- LDI : ADDI : SUBI : MULTI								// 			--LW e SW
-	imm <= inst(7 downto 0) when (opcode = "0011" or opcode = "0100" or opcode = "0101" or opcode = "1011" or opcode = "1000" or opcode = "1001" or opcode = "1010" or opcode = "0110" or opcode = "0111")
+	imm <= IF_ID(7 downto 0) when (opcode = "0011" or opcode = "0100" or opcode = "0101" or opcode = "1011" or opcode = "1000" or opcode = "1001" or opcode = "1010" or opcode = "0110" or opcode = "0111")
 		else
 			(others => '0');
 				
@@ -180,9 +180,6 @@ begin
 	ulaIn0 <= brOut0; 
     ulaIn1 <= "00000000" & imm when (opcode = "1000" or opcode = "1001" or opcode = "1010") else -- ADDI : SUBI : MULTI	
     		brOut1;
-     		
-	-- BUSCA INSNTRUCAO
-	
 
 process(clock, reset)
 	begin
@@ -224,6 +221,5 @@ memInst(10) <= 20x"6A003";
 memInst(11) <= (others => '0');
 memInst(12) <= (others => '0');
 memInst(13) <= (others => '0');
-
 
 end behavior;
