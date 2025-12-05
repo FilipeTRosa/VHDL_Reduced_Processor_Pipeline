@@ -22,11 +22,14 @@ signal imm			: std_logic_vector(7 downto 0);
 
 -- REGISTRADORES DE PIPELINE
 
-signal IF_ID		: std_logic_vector(19 downto 0);
-signal ID_EX    	: std_logic_vector(19 downto 0);
-signal EX_MEM   	: std_logic_vector(19 downto 0);
-signal MEM_WB   	: std_logic_vector(19 downto 0);
-
+signal IF_ID				: std_logic_vector(19 downto 0);
+signal ID_EX    			: std_logic_vector(19 downto 0);
+signal EX_MEM   			: std_logic_vector(19 downto 0);
+signal MEM_WB   			: std_logic_vector(19 downto 0);
+signal controle_IF_ID		: std_logic_vector(19 downto 0);
+signal controle_ID_EX    	: std_logic_vector(19 downto 0);
+signal controle_EX_MEM   	: std_logic_vector(19 downto 0);
+signal controle_MEM_WB   	: std_logic_vector(19 downto 0);
 
 -- MEMORIA DE INSTRUCOES --
 type mem is array (integer range 0 to 255) of std_logic_vector(19 downto 0);
@@ -180,6 +183,7 @@ begin
 	ulaIn0 <= brOut0; 
     ulaIn1 <= "00000000" & imm when (opcode = "1000" or opcode = "1001" or opcode = "1010") else -- ADDI : SUBI : MULTI	
     		brOut1;
+    		-- 0 > brout1 ..... ou ..... 1 > ADDI : SUBI : MULTI	ATUALIZAR COM O CONTROLE JA TEM O SINAL
 
 process(clock, reset)
 	begin
