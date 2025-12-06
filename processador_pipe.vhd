@@ -36,7 +36,30 @@ type mem is array (integer range 0 to 255) of std_logic_vector(19 downto 0);
 signal memInst		: mem;
 
 -- SINAIS DE CONTROLE --
-signal pc 			: std_logic_vector(7 downto 0);
+signal pc 					: std_logic_vector(7 downto 0);
+signal ctl_opcode			: std_logic;
+signal ctl_brEnable			: std_logic; 
+signal ctl_ulaOp			: std_logic_vector (1 downto 0);
+signal muxUlaIn1			: std_logic;
+signal muxBrData			: std_logic_vector (1 downto 0);
+signal ctl_jump				: std_logic;
+signal ctl_memIn			: std_logic;
+signal ctl_branch			: std_logic;
+
+component controle is
+	port(
+		ctl_opcode			: in std_logic;
+		ctl_brEnable		: out std_logic; 
+		ctl_ulaOp			: out std_logic_vector (1 downto 0);
+		muxUlaIn1			: out std_logic;
+		muxBrData			: out std_logic_vector (1 downto 0);
+		ctl_jump			: out std_logic;
+		ctl_memIn			: out std_logic;
+		ctl_branch			: out std_logic
+	);
+end component;
+
+
 
 -- SINAIS DA ULA --
 signal ulaOut 		: std_logic_vector(15 downto 0);
@@ -97,6 +120,21 @@ end component;
 
 
 begin
+
+	-- ### PORTMAP CONTROLE ### --
+	controleProcess : controle
+	port map(
+        -- Porta do controle => processador
+     	ctl_opcode		=> ctl_opcode,
+		ctl_brEnable	=> ctl_brEnable,
+		ctl_ulaOp		=> ctl_ulaOp,
+		muxUlaIn1		=> muxUlaIn1,
+		muxBrData		=> muxBrData,
+		ctl_jump		=> ctl_jump,
+		ctl_memIn		=> ctl_memIn,	
+		ctl_branch		=> ctl_branch  
+    );
+
 
 	-- ### PORTMAP ULA ### --
 	ulaProcess : ula
@@ -170,7 +208,8 @@ begin
 	brData 		<= "00000000" & imm when(opcode = "1011") else --LDI
 					memDataOut when (opcode = "0110") else --LW
 					ulaOut;
-	
+	-- 00 LDI ...... 01 LW...... 10 & 11 ulaOut ---->> ATUALIZAR COM O CONTROLE JA TEM O SINAL
+					
 	--Ligando cabos da Memoria
     memDataEnd  <= imm;
     memDataIn   <= brOut0;
@@ -183,8 +222,13 @@ begin
 	ulaIn0 <= brOut0; 
     ulaIn1 <= "00000000" & imm when (opcode = "1000" or opcode = "1001" or opcode = "1010") else -- ADDI : SUBI : MULTI	
     		brOut1;
-    		-- 0 > brout1 ..... ou ..... 1 > ADDI : SUBI : MULTI	ATUALIZAR COM O CONTROLE JA TEM O SINAL
+    		-- ULA IN 1 ..... 0 > brout1 ..... ou ..... 1 > ADDI : SUBI : MULTI	ATUALIZAR COM O CONTROLE JA TEM O SINAL
 
+    --Ligando o controle
+    ctl_opcode <= opcode;
+    		
+    		
+    		
 process(clock, reset)
 	begin
 		if reset = '1' then
@@ -192,7 +236,17 @@ process(clock, reset)
 		elsif clock = '1' and clock'event then --reset 0
 			
 			--Alimentando redistradores de Pipeline--
-			IF_ID  	<= memInst(conv_integer(PC));
+			IF_ID  	<= memInst(conv_integer(PC)); -- Busca
+			--Ligando o controle
+			controle_IF_ID(0) <= ctl_branch;
+			controle_IF_ID(1) <= ctl_memIn;
+			controle_IF_ID(2) <= ctl_jump;
+			controle_IF_ID(4 downto 3) <= muxBrData;
+			controle_IF_ID(5) <= muxUlaIn1;
+			controle_IF_ID(7 downto 6) <= ctl_ulaOp;
+			controle_IF_ID(8) <= ctl_brEnable;
+			--............................
+			
 			
 			--incremento do PC....
 			if (opcode = "0011") then --JMP
