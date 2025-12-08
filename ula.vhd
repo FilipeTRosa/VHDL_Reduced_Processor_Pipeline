@@ -18,7 +18,7 @@ end entity;
 
 architecture behavior of ula is
 
---simais ULA
+--sinais ULA
 signal comp 	: std_logic_vector(15 downto 0);
 signal multi 	: std_logic_vector(31 downto 0);
 begin

@@ -26,10 +26,18 @@ signal IF_ID				: std_logic_vector(19 downto 0);
 signal ID_EX    			: std_logic_vector(19 downto 0);
 signal EX_MEM   			: std_logic_vector(19 downto 0);
 signal MEM_WB   			: std_logic_vector(19 downto 0);
-signal controle_IF_ID		: std_logic_vector(19 downto 0);
 signal controle_ID_EX    	: std_logic_vector(19 downto 0);
 signal controle_EX_MEM   	: std_logic_vector(19 downto 0);
 signal controle_MEM_WB   	: std_logic_vector(19 downto 0);
+signal brOut0ID_EX   	 	: std_logic_vector (15 downto 0);
+signal brOut1ID_EX   		: std_logic_vector (15 downto 0); 
+signal immID_EX				: std_logic_vector(7 downto 0);
+signal immEX_MEM			: std_logic_vector(7 downto 0);
+signal brOut0EX_MEM  	 	: std_logic_vector (15 downto 0);
+signal ulaOutEX_MEM   		: std_logic_vector(15 downto 0);
+signal ulaOutMEM_WB    		: std_logic_vector(15 downto 0);
+signal memDataOutMEM_WB 	: std_logic_vector (15 downto 0);
+signal immMEM_WB			: std_logic_vector(7 downto 0);
 
 -- MEMORIA DE INSTRUCOES --
 type mem is array (integer range 0 to 255) of std_logic_vector(19 downto 0);
@@ -37,7 +45,7 @@ signal memInst		: mem;
 
 -- SINAIS DE CONTROLE --
 signal pc 					: std_logic_vector(7 downto 0);
-signal ctl_opcode			: std_logic;
+signal ctl_opcode			: std_logic_vector(3 downto 0);
 signal ctl_brEnable			: std_logic; 
 signal ctl_ulaOp			: std_logic_vector (1 downto 0);
 signal muxUlaIn1			: std_logic;
@@ -45,17 +53,21 @@ signal muxBrData			: std_logic_vector (1 downto 0);
 signal ctl_jump				: std_logic;
 signal ctl_memIn			: std_logic;
 signal ctl_branch			: std_logic;
+signal ctl_memToReg			: std_logic;
+signal ctl_branchNe			: std_logic;
 
 component controle is
 	port(
-		ctl_opcode			: in std_logic;
+		ctl_opcode			: in std_logic_vector(3 downto 0);
 		ctl_brEnable		: out std_logic; 
 		ctl_ulaOp			: out std_logic_vector (1 downto 0);
 		muxUlaIn1			: out std_logic;
 		muxBrData			: out std_logic_vector (1 downto 0);
 		ctl_jump			: out std_logic;
 		ctl_memIn			: out std_logic;
-		ctl_branch			: out std_logic
+		ctl_branch			: out std_logic;
+		ctl_memToReg		: out std_logic;
+		ctl_branchNe		: out std_logic
 	);
 end component;
 
@@ -82,6 +94,8 @@ end component;
 signal memDataEnd	: std_logic_vector(7 downto 0); -- para guardar o end do SW e LW
 signal memDatain 	: std_logic_vector(15 downto 0);
 signal memDataOut	: std_logic_vector(15 downto 0);
+signal memEnable	: std_logic;
+signal memToReg		: std_logic;
 
 component memoria is 
 	port(
@@ -89,6 +103,8 @@ component memoria is
 		memDataOut	: out std_logic_vector(15 downto 0);
 		opcode		: in std_logic_vector(3 downto 0);
 		memDataIn 	: in std_logic_vector(15 downto 0);
+		memEnable	: in std_logic;
+		memToReg	: in std_logic;
 		clock		: in std_logic
 	);
 end component;
@@ -132,7 +148,9 @@ begin
 		muxBrData		=> muxBrData,
 		ctl_jump		=> ctl_jump,
 		ctl_memIn		=> ctl_memIn,	
-		ctl_branch		=> ctl_branch  
+		ctl_branch		=> ctl_branch,
+		ctl_memToReg	=> ctl_memToReg,
+		ctl_branchNe	=> ctl_branchNe
     );
 
 
@@ -155,6 +173,8 @@ begin
         memDataOut  => memDataOut,
         opcode   	=> opcode,
         memDataIn   => memDataIn,
+        memEnable	=> memEnable,
+        memToReg	=> memToReg,
         clock    	=> clock
     );
 
@@ -196,38 +216,39 @@ begin
 		else
 			(others => '0');
 				
-	--ENABLE ESCRITA NO BR  		-- ADD : SUB : MULT							//		SW			//					ADDI : SUBI : MULTI					// LDI				//     LW
-	brEnable <= '1' when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0111" or opcode = "1000" or opcode = "1001" or opcode = "1010" or opcode = "1011" or opcode = "0110")
-		else	
-			'0';
 
 	--Ligando cabos do BR
 	brReg0  	<= reg0;		
 	brReg1 	  	<= reg1;
-	brRegDest 	<= regDest;
-	brData 		<= "00000000" & imm when(opcode = "1011") else --LDI
-					memDataOut when (opcode = "0110") else --LW
-					ulaOut;
+	brRegDest 	<= regDest; -- mudar para pegar do MEM/WB
+	brData 		<= "00000000" & immMEM_WB when(controle_MEM_WB(4 downto 0) = "00") else --LDI
+					memDataOutMEM_WB when (controle_MEM_WB(4 downto 0) = "01") else --LW
+					ulaOutMEM_WB;
 	-- 00 LDI ...... 01 LW...... 10 & 11 ulaOut ---->> ATUALIZAR COM O CONTROLE JA TEM O SINAL
+	--ENABLE ESCRITA NO BR  		-- ADD : SUB : MULT							//		SW			//					ADDI : SUBI : MULTI					// LDI				//     LW
+	brEnable <= controle_MEM_WB(8); -- LOGICA NOVA COM CONTROLE
+	--'1' when (opcode = "0000" or opcode = "0001" or opcode = "0010" or opcode = "0111" or opcode = "1000" or opcode = "1001" or opcode = "1010" or opcode = "1011" or opcode = "0110")
+	--	else	
+	--		'0';
+	-- quem manda no br enable é o ctl_brEnable	que está no controle_MEM_WB(8)
+	
 					
 	--Ligando cabos da Memoria
-    memDataEnd  <= imm;
-    memDataIn   <= brOut0;
+    memDataEnd  <= immID_EX;
+    memDataIn   <= brOut0EX_MEM;
+    memEnable	<= controle_EX_MEM(1);
+    memToReg	<= controle_EX_MEM(10);
 	
 	--Ligando cabos da Ula
-	ulaOp <= "00" when opcode = "0000" or opcode = "1000" else
-			"01" when opcode = "0001" or opcode = "1001" else
-			"10" when opcode = "0010" or opcode = "1010" else
-			"11";
-	ulaIn0 <= brOut0; 
-    ulaIn1 <= "00000000" & imm when (opcode = "1000" or opcode = "1001" or opcode = "1010") else -- ADDI : SUBI : MULTI	
-    		brOut1;
+	ulaOp  <= controle_ID_EX(7 downto 6);
+	ulaIn0 <= brOut0ID_EX; 
+    ulaIn1 <= "00000000" & immID_EX when (controle_ID_EX(5) = '1') else -- ADDI : SUBI : MULTI	
+    		brOut1ID_EX;
     		-- ULA IN 1 ..... 0 > brout1 ..... ou ..... 1 > ADDI : SUBI : MULTI	ATUALIZAR COM O CONTROLE JA TEM O SINAL
 
     --Ligando o controle
-    ctl_opcode <= opcode;
-    		
-    		
+    ctl_opcode <= opcode; --opcode no IFID
+    				
     		
 process(clock, reset)
 	begin
@@ -235,24 +256,72 @@ process(clock, reset)
 			PC <= (others => '0');
 		elsif clock = '1' and clock'event then --reset 0
 			
-			--Alimentando redistradores de Pipeline--
-			IF_ID  	<= memInst(conv_integer(PC)); -- Busca
-			--Ligando o controle
-			controle_IF_ID(0) <= ctl_branch;
-			controle_IF_ID(1) <= ctl_memIn;
-			controle_IF_ID(2) <= ctl_jump;
-			controle_IF_ID(4 downto 3) <= muxBrData;
-			controle_IF_ID(5) <= muxUlaIn1;
-			controle_IF_ID(7 downto 6) <= ctl_ulaOp;
-			controle_IF_ID(8) <= ctl_brEnable;
+			--ESTAGIO IF ID
+				--Alimentando redistradores de Pipeline--
+				IF_ID  	<= memInst(conv_integer(PC)); -- Busca
+				
+			
+			--ESTAGIO ID EX
+				--Ligando o controle
+				controle_ID_EX(0) <= ctl_branch;
+				controle_ID_EX(1) <= ctl_memIn;
+				controle_ID_EX(2) <= ctl_jump;
+				controle_ID_EX(4 downto 3) <= muxBrData;
+				controle_ID_EX(5) <= muxUlaIn1;
+				controle_ID_EX(7 downto 6) <= ctl_ulaOp;
+				controle_ID_EX(8) <= ctl_brEnable;
+				controle_ID_EX(9) <= ctl_branchNe;
+				controle_ID_EX(10)<= ctl_memToReg;
+				controle_ID_EX(19 downto 11) <= "000000000";
+				-- pegando saida do BR
+				brOut0ID_EX   	 <= brOut0;
+	       		brOut1ID_EX   	 <= brOut1;  
+				immID_EX		 <= imm;
+			
+			
+			--ESTAGIO EX MEM
+				--Passando o controle
+				controle_EX_MEM(1) <= controle_ID_EX(1);
+				controle_EX_MEM(8) <= controle_ID_EX(8);
+				controle_EX_MEM(4 downto 3) <= controle_ID_EX(4 downto 3);
+				controle_EX_MEM(2) <= '0';
+				controle_EX_MEM(0) <= '0';
+				controle_EX_MEM(5) <= '0';
+				controle_EX_MEM(7 downto 6) <= "00";
+				controle_EX_MEM(9) <= '0';
+				controle_EX_MEM(10)<= controle_ID_EX(10);
+				controle_ID_EX(19 downto 11) <= "000000000";
+				--outros regs
+				immEX_MEM	 	 <= immID_EX;
+				brOut0EX_MEM	 <= brOut0ID_EX;
+				ulaOutEX_MEM	 <= ulaOut;
+				
+			--ESTAGIO MEM WR
+				controle_MEM_WB(1) <= '0';
+				controle_MEM_WB(8) <= controle_EX_MEM(8);
+				controle_MEM_WB(4 downto 3) <= controle_EX_MEM(4 downto 3);
+				controle_MEM_WB(2) <= '0';
+				controle_MEM_WB(0) <= '0';
+				controle_MEM_WB(5) <= '0';
+				controle_MEM_WB(7 downto 6) <= "00";
+				controle_MEM_WB(9) <= '0';
+				controle_MEM_WB(10)<= controle_ID_EX(10);
+				controle_MEM_WB(19 downto 11) <= "000000000";
+				--Outros Regs
+				ulaOutMEM_WB		<= ulaOutEX_MEM;
+				memDataOutMEM_WB	<= memDataOut;
+				immMEM_WB			<= immEX_MEM;
 			--............................
 			
 			
+		
+			
+			
 			--incremento do PC....
-			if (opcode = "0011") then --JMP
+			if (ctl_jump = '1') then --JMP
 				pc <= imm;
-			elsif ((opcode = "0100") and (ulaComp = '0')) or ((opcode = "0101") and (ulaComp = '1')) then -- (0100 and 0) = BEQ ...ou... (0101 and 1) = BNE
-				pc <= pc + imm;
+			elsif ((controle_ID_EX(0) = '0') and (ulaComp = '0')) or ((controle_ID_EX(9) = '1') and (ulaComp = '1')) then -- (0100 and 0) = BEQ ...ou... (0101 and 1) = BNE
+				pc <= pc + immID_EX;
 			else
 				pc <= pc + 1;
 			end if;
@@ -264,20 +333,29 @@ end process;
 
 -- memoria instruções
 memInst(0) <= 20x"B0401";
-memInst(1) <= 20x"B0203";
+memInst(1) <= 20x"B0202";
 memInst(2) <= 20x"B0302";
-memInst(3) <= 20x"40306";
-memInst(4) <= 20x"22406";
-memInst(5) <= 20x"06004";
-memInst(6) <= 20x"93701";
-memInst(7) <= 20x"07003";
-memInst(8) <= 20x"30003";
-memInst(9) <= 20x"74003";
-memInst(15) <= (others => '0');
-memInst(14) <= (others => '0');
-memInst(10) <= 20x"6A003";
-memInst(11) <= (others => '0');
-memInst(12) <= (others => '0');
-memInst(13) <= (others => '0');
+memInst(3) <= 20x"00000";
+memInst(4) <= 20x"00000";
+memInst(5) <= 20x"4030D";
+memInst(6) <= 20x"00000";
+memInst(7) <= 20x"00000";
+memInst(8) <= 20x"00000";
+memInst(9) <= 20x"22406";
+memInst(10) <= 20x"00000";
+memInst(11) <= 20x"06004";
+memInst(12) <= 20x"93701";
+memInst(13) <= 20x"00000";
+memInst(14) <= 20x"00000";
+memInst(15) <= 20x"07003";
+memInst(16) <= 20x"30003";
+memInst(17) <= 20x"00000";
+memInst(18) <= 20x"74003";
+memInst(19) <= 20x"6A003";
+memInst(20) <= (others => '0');
+memInst(21) <= (others => '0');
+memInst(22) <= (others => '0');
+memInst(23) <= (others => '0');
+memInst(24) <= (others => '0');
 
 end behavior;

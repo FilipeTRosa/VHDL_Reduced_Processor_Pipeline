@@ -5,14 +5,16 @@ use ieee.std_logic_arith.all;
 
 entity controle is
 	port(
-		ctl_opcode			: in std_logic;
+		ctl_opcode			: in std_logic_vector(3 downto 0);
 		ctl_brEnable		: out std_logic; 
 		ctl_ulaOp			: out std_logic_vector (1 downto 0);
 		muxUlaIn1			: out std_logic;
 		muxBrData			: out std_logic_vector (1 downto 0);
 		ctl_jump			: out std_logic;
 		ctl_memIn			: out std_logic;
-		ctl_branch			: out std_logic
+		ctl_branch			: out std_logic;
+		ctl_memToReg		: out std_logic;
+		ctl_branchNe		: out std_logic
 	);
 end entity;
 architecture behavior of controle is
@@ -21,22 +23,24 @@ begin
 
 
 
-process(opcode)
+process(ctl_opcode)
 begin
 
-case opcode is
+case ctl_opcode is
     
         -- ==========================================
         -- TIPO R (Aritméticas)
         -- ==========================================
         when "0000" => -- ADD
             ctl_brEnable    <= '1';
-            vulaOp       	<= "00";
+            ctl_ulaOp       	<= "00";
             muxUlaIn1		<= '0';
             muxBrData   	<= "10";
             ctl_jump        <= '0';
             ctl_memIn       <= '0'; -- (Provavel MemWrite)
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "0001" => -- SUB
             ctl_brEnable    <= '1';
@@ -46,6 +50,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "0010" => -- MULT
             ctl_brEnable    <= '1';
@@ -55,6 +61,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         -- ==========================================
         -- DESVIOS (Jumps e Branches)
@@ -64,9 +72,11 @@ case opcode is
             ctl_ulaOp       <= "11";
             muxUlaIn1		<= '0';
             muxBrData  		<= "10";
-            ctl_jump        <= '0';
+            ctl_jump        <= '1';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "0100" => -- BEQ
             ctl_brEnable    <= '0';
@@ -75,7 +85,9 @@ case opcode is
             muxBrData   	<= "10";
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
-            ctl_branch      <= '0';
+            ctl_branch      <= '1';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "0101" => -- BNE
             ctl_brEnable    <= '0';
@@ -85,6 +97,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '1';
+            ctl_memToReg 	<= '0';
 
         -- ==========================================
         -- ACESSO A MEMÓRIA
@@ -97,6 +111,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '1';
 
         when "0111" => -- SW
             ctl_brEnable    <= '1';
@@ -104,8 +120,10 @@ case opcode is
             muxUlaIn1		<= '0';
             muxBrData   	<= "10";
             ctl_jump        <= '0';
-            ctl_memIn       <= '0';
+            ctl_memIn       <= '1';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         -- ==========================================
         -- IMEDIATAS (ADDI, SUBI, ETC)
@@ -118,6 +136,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "1001" => -- SUBI
             ctl_brEnable    <= '1';
@@ -127,6 +147,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "1010" => -- MULTI
             ctl_brEnable    <= '1';
@@ -136,6 +158,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         when "1011" => -- LDI
             ctl_brEnable    <= '1';
@@ -145,6 +169,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
 
         -- ==========================================
         -- SEGURANÇA (Outros casos)
@@ -157,6 +183,8 @@ case opcode is
             ctl_jump        <= '0';
             ctl_memIn       <= '0';
             ctl_branch      <= '0';
+            ctl_branchNe	<= '0';
+            ctl_memToReg 	<= '0';
             
     end case;
 
