@@ -5,6 +5,7 @@ use ieee.std_logic_arith.all;
 
 entity controle is
 	port(
+		clock				: in std_logic;
 		ctl_opcode			: in std_logic_vector(3 downto 0);
 		ctl_brEnable		: out std_logic; 
 		ctl_ulaOp			: out std_logic_vector (1 downto 0);
@@ -23,10 +24,10 @@ begin
 
 
 
-process(ctl_opcode)
+process(clock, ctl_opcode)
 begin
-
-case ctl_opcode is
+if clock = '1' and clock'event then
+	case ctl_opcode is
     
         -- ==========================================
         -- TIPO R (Aritméticas)
@@ -187,6 +188,6 @@ case ctl_opcode is
             ctl_memToReg 	<= '0';
             
     end case;
-
+end if;
 end process;
 end behavior;

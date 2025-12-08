@@ -1,239 +1,277 @@
 m255
 K3
+z0
+!s11e MIXED_VERSIONS
 13
 cModel Technology
 dC:\Users\lippe\Downloads\PD2 prova 1
 Ebregistradores
-Z0 w1765047740
-Z1 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
-Z2 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
-Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
-Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
-Z5 dC:\Users\lippe\Documents\GitHub\VHDL_Reduced_Processor_Pipeline
-Z6 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
-Z7 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
+Z0 w1764587339
+Z1 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z2 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 12
+Z5 dC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline
+Z6 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
+Z7 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
 l0
-L6
-VTc:gA=nGXg?7AlkMReO5W3
-Z8 OV;C;10.1d;51
+L6 1
+V[gf1iIOIGO_;e;SW65P593
+!s100 7m3^lC^f7]`I`lbiBRef21
+Z8 OV;C;2020.1;71
 33
-Z9 !s108 1765161644.602000
-Z10 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd|
-Z11 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd|
-Z12 o-work work -2008 -explicit -O0
-Z13 tExplicit 1
-!s100 WEbj]Z4YXOKZEgo6jMAHo1
+Z9 !s110 1765197630
 !i10b 1
+Z10 !s108 1765197630.000000
+Z11 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd|
+Z12 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd|
+!i113 1
+Z13 o-work work -2008 -explicit
+Z14 tExplicit 1 CvgOpt 0
 Abehavior
 R1
 R2
 R3
 R4
-DEx4 work 14 bregistradores 0 22 Tc:gA=nGXg?7AlkMReO5W3
+DEx4 work 14 bregistradores 0 22 [gf1iIOIGO_;e;SW65P593
+!i122 12
 l28
-L20
-VjbU9F33cd45h0[SCCo>Z32
+L20 26
+V>dU6:XMUmV;[TVMCAQ:RQ0
+!s100 [85fJS8GDW>k?Q;U:XJ_02
 R8
 33
 R9
+!i10b 1
 R10
 R11
 R12
+!i113 1
 R13
-!s100 MW5gdk_:_QPD^Z@8mBJ?40
-!i10b 1
+R14
 Econtrole
-Z14 w1765159552
+Z15 w1765195022
 R1
 R2
 R3
 R4
+!i122 13
 R5
-Z15 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
-Z16 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
+Z16 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
+Z17 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
 l0
-L6
-V`;NE5zW374UF_10oKhQ6?3
+L6 1
+VkIS0;]WUQ96@MT]97ioX92
+!s100 d=RlCl0=^4h[;Pf4@IS7O3
 R8
 33
-Z17 !s108 1765161644.867000
-Z18 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd|
-Z19 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd|
-R12
-R13
-!s100 CV^jU@=;Jemc9TG=e2=jJ2
+R9
 !i10b 1
+R10
+Z18 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd|
+Z19 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd|
+!i113 1
+R13
+R14
 Abehavior
 R1
 R2
 R3
 R4
-DEx4 work 8 controle 0 22 `;NE5zW374UF_10oKhQ6?3
-l21
-L20
-VT1G^PImYkchgS4WTUUg_A0
-!s100 bc?2<8F^Hc08j0LXnLW2N2
+DEx4 work 8 controle 0 22 kIS0;]WUQ96@MT]97ioX92
+!i122 13
+l22
+L21 173
+Vb91f?e4Shb3h76fiW@fDn0
+!s100 z1AI:D[c@L=JkYYT1NglE3
 R8
 33
-R17
+R9
+!i10b 1
+R10
 R18
 R19
-R12
+!i113 1
 R13
-!i10b 1
+R14
 Ememoria
-Z20 w1765156088
+Z20 w1765192201
 R1
 R2
 R3
 R4
+!i122 14
 R5
-Z21 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
-Z22 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
+Z21 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
+Z22 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
 l0
-L6
-V9kO5m0:ZoigXLUBMF^BTd3
+L6 1
+VLf5Dhk2Wfm7Jz09R54UAa1
+!s100 [4^G;mgYEX]JzCN7ThGA72
 R8
 33
-Z23 !s108 1765161644.669000
-Z24 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd|
-Z25 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd|
-R12
-R13
-!s100 T^JW^OPh1`R;mgZm2E^iM2
+R9
 !i10b 1
+R10
+Z23 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd|
+Z24 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd|
+!i113 1
+R13
+R14
 Abehavior
 R1
 R2
 R3
 R4
-DEx4 work 7 memoria 0 22 9kO5m0:ZoigXLUBMF^BTd3
+DEx4 work 7 memoria 0 22 Lf5Dhk2Wfm7Jz09R54UAa1
+!i122 14
 l24
-L17
-V6>QTjnlUR:kgVKL9mA]El0
+L17 27
+Va`8KmgE?QUID?kk9YLi352
+!s100 ]hI:MhnK2zJ:zVBcW8B`91
 R8
 33
+R9
+!i10b 1
+R10
 R23
 R24
-R25
-R12
+!i113 1
 R13
-!s100 R9?<BNVA7ekPSGefTPRi_0
-!i10b 1
+R14
 Eprocessador_pipe
-Z26 w1765161627
+Z25 w1765197615
 R1
 R2
 R3
 R4
+!i122 15
 R5
-Z27 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
-Z28 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
+Z26 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
+Z27 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
 l0
-L6
-VJn7o7dmYEmGeIEIjN6d^L2
-!s100 D]RYB5`B:<hzaacE@cR8]3
+L6 1
+Vj9[kIBllPhMHcDHK1_[gG3
+!s100 NBTc5>cAJE>_HnDn5Fa=k1
 R8
 33
+R9
 !i10b 1
-Z29 !s108 1765161644.935000
-Z30 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd|
-Z31 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd|
-R12
+R10
+Z28 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd|
+Z29 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd|
+!i113 1
 R13
+R14
 Abehavior
 R1
 R2
 R3
 R4
-Z32 DEx4 work 16 processador_pipe 0 22 Jn7o7dmYEmGeIEIjN6d^L2
-l138
-L13
-Vo2L@J8XbV9743IFQ3o8fN0
-!s100 M_:G^DAFY?mkAM0fdE0V82
+DEx4 work 16 processador_pipe 0 22 j9[kIBllPhMHcDHK1_[gG3
+!i122 15
+l139
+L13 352
+V756mdA0@cMWd7:5@Q?4DP3
+!s100 f51LJH>dmk4k@iPJPIlQm3
 R8
 33
+R9
 !i10b 1
+R10
+R28
 R29
-R30
-R31
-R12
+!i113 1
 R13
+R14
 Etb
-Z33 w1765047740
+R0
 R1
 R2
 R3
 R4
+!i122 16
 R5
-Z34 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
-Z35 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
+Z30 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
+Z31 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
 l0
-L6
-Veb24BHkYVMT2SF5mR=;lS1
+L6 1
+VG0A8ZBCYnQ]Nl@f_Kfo8L3
+!s100 fL5i@EBUm]lHBfoH<5SY>3
 R8
 33
-Z36 !s108 1765161644.735000
-Z37 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd|
-Z38 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd|
-R12
-R13
-!s100 ;Ge134N2>Vz[Gh@7n=IeJ3
+R9
 !i10b 1
+R10
+Z32 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd|
+Z33 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd|
+!i113 1
+R13
+R14
 Abehavior
 R1
 R2
 R3
 R4
-DEx4 work 2 tb 0 22 eb24BHkYVMT2SF5mR=;lS1
+DEx4 work 2 tb 0 22 G0A8ZBCYnQ]Nl@f_Kfo8L3
+!i122 16
 l25
-L9
-Vz27jii`Z4]?5<3NNQ`<zV3
+L9 38
+V2zQVDSEVPh6X0U5QZm83B2
+!s100 beW6kEHWl1zNPj_do67Gf1
 R8
 33
+R9
+!i10b 1
+R10
+R32
+R33
+!i113 1
+R13
+R14
+Eula
+R20
+R1
+R2
+R3
+R4
+!i122 17
+R5
+Z34 8C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
+Z35 FC:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
+l0
+L7 1
+VY?OJAdE`E`]oiNI_@ofZ?2
+!s100 Ia_dVVjFTgOOEFPS9AiiO3
+R8
+33
+R9
+!i10b 1
+R10
+Z36 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd|
+Z37 !s107 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd|
+!i113 1
+R13
+R14
+Abehavior
+R1
+R2
+R3
+R4
+Z38 DEx4 work 3 ula 0 22 Y?OJAdE`E`]oiNI_@ofZ?2
+!i122 17
+l24
+Z39 L19 19
+Z40 VkmfmSn1G3;fO<NWjVNPf:1
+Z41 !s100 jIGabjL5blQVLHA@n?1MY1
+R8
+33
+R9
+!i10b 1
+R10
 R36
 R37
-R38
-R12
+!i113 1
 R13
-!s100 KJd];>c6f422[Gc:Km1S50
-!i10b 1
-Eula
-Z39 w1765047854
-R1
-R2
-R3
-R4
-R5
-Z40 8C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
-Z41 FC:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
-l0
-L7
-VPoh1175CKgN_E@`oN>=U>1
-R8
-33
-Z42 !s108 1765161644.800000
-Z43 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd|
-Z44 !s107 C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd|
-R12
-R13
-!s100 ;Q8Q5zKnT65X:JNhHzJ`j0
-!i10b 1
-Abehavior
-R1
-R2
-R3
-R4
-DEx4 work 3 ula 0 22 Poh1175CKgN_E@`oN>=U>1
-l24
-L19
-V1l7N=6=n4`d?KY=0BcQ]B1
-R8
-33
-R42
-R43
-R44
-R12
-R13
-!s100 gboU7hK;L_ok44:lVZJ]m2
-!i10b 1
+R14

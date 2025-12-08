@@ -58,6 +58,7 @@ signal ctl_branchNe			: std_logic;
 
 component controle is
 	port(
+		clock				: in std_logic;
 		ctl_opcode			: in std_logic_vector(3 downto 0);
 		ctl_brEnable		: out std_logic; 
 		ctl_ulaOp			: out std_logic_vector (1 downto 0);
@@ -150,7 +151,8 @@ begin
 		ctl_memIn		=> ctl_memIn,	
 		ctl_branch		=> ctl_branch,
 		ctl_memToReg	=> ctl_memToReg,
-		ctl_branchNe	=> ctl_branchNe
+		ctl_branchNe	=> ctl_branchNe,
+		clock    	=> clock
     );
 
 
@@ -193,6 +195,7 @@ begin
     );
 
 	--separando a operação COM 20 bits	
+	inst <= memInst(conv_integer(PC));
 	opcode <= IF_ID(19 downto 16);
 	--tentando com when
 														-- ADD : SUB : MULT				   //   		-- BEQ e BNE			// 			 ADDI : SUBI : MULTI							//     	 SW
@@ -258,7 +261,7 @@ process(clock, reset)
 			
 			--ESTAGIO IF ID
 				--Alimentando redistradores de Pipeline--
-				IF_ID  	<= memInst(conv_integer(PC)); -- Busca
+				IF_ID  	<= inst; -- Busca
 				
 			
 			--ESTAGIO ID EX
