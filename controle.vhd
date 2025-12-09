@@ -34,7 +34,7 @@ if clock = '1' and clock'event then
         -- ==========================================
         when "0000" => -- ADD
             ctl_brEnable    <= '1';
-            ctl_ulaOp       	<= "00";
+            ctl_ulaOp       <= "00";
             muxUlaIn1		<= '0';
             muxBrData   	<= "10";
             ctl_jump        <= '0';

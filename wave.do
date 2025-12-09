@@ -6,15 +6,13 @@ add wave -noupdate -divider Processador
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/clock
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/reset
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/inst
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/pc
 add wave -noupdate -radix binary /tb/inst_processador_pipe/opcode
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/reg0
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/reg1
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/regDest
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/imm
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/IF_ID
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/ID_EX
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/EX_MEM
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/MEM_WB
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/controle_ID_EX
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/controle_EX_MEM
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/controle_MEM_WB
@@ -28,7 +26,6 @@ add wave -noupdate -radix decimal /tb/inst_processador_pipe/ulaOutMEM_WB
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/memDataOutMEM_WB
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/immMEM_WB
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/memInst
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/pc
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/ctl_opcode
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/ctl_brEnable
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/ctl_ulaOp
@@ -66,15 +63,15 @@ add wave -noupdate -radix decimal /tb/inst_processador_pipe/ulaProcess/comp
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/ulaProcess/multi
 add wave -noupdate -divider CONTROLE
 add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_opcode
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_brEnable
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_ulaOp
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/muxUlaIn1
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/muxBrData
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_jump
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_memIn
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_branch
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_memToReg
-add wave -noupdate -radix decimal /tb/inst_processador_pipe/controleProcess/ctl_branchNe
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_brEnable
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_ulaOp
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/muxUlaIn1
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/muxBrData
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_jump
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_memIn
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_branch
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_memToReg
+add wave -noupdate -radix binary /tb/inst_processador_pipe/controleProcess/ctl_branchNe
 add wave -noupdate -divider {B REGISTRADORES}
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/bregistradoresProcess/brReg0
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/bregistradoresProcess/brReg1
@@ -89,9 +86,18 @@ add wave -noupdate -radix decimal /tb/inst_processador_pipe/bregistradoresProces
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/bregistradoresProcess/endBr1
 add wave -noupdate -radix decimal /tb/inst_processador_pipe/bregistradoresProcess/endRegDest
 add wave -noupdate -divider {MEMORIA DADOS}
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/memDataEnd
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/memDataOut
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/opcode
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/memDataIn
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/memEnable
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/memToReg
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/clock
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/mem_ram
+add wave -noupdate -radix decimal /tb/inst_processador_pipe/memoriaProcess/endInt
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
-quietly wave cursor active 0
+quietly wave cursor active 1
 configure wave -namecolwidth 297
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
@@ -106,4 +112,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {4181 ps}
+WaveRestoreZoom {0 ps} {46300 ps}
