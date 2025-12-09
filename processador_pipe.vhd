@@ -326,10 +326,7 @@ process(clock, reset)
 				regDestMEM_WR		<= regDestEX_MEM;
 			--............................
 			
-			
-		
-			
-			
+
 			--incremento do PC....
 			if (ctl_jump = '1') then --JMP
 				pc <= imm;
