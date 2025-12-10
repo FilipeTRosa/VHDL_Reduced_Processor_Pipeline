@@ -116,7 +116,7 @@ if clock = '1' and clock'event then
             ctl_memToReg 	<= '1';
 
         when "0111" => -- SW
-            ctl_brEnable    <= '1';
+            ctl_brEnable    <= '0';
             ctl_ulaOp       <= "11";
             muxUlaIn1		<= '0';
             muxBrData   	<= "10";

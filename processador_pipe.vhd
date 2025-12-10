@@ -41,7 +41,10 @@ signal ulaOutEX_MEM   		: std_logic_vector(15 downto 0);
 signal ulaOutMEM_WB    		: std_logic_vector(15 downto 0);
 signal memDataOutMEM_WB 	: std_logic_vector (15 downto 0);
 signal immMEM_WB			: std_logic_vector(7 downto 0);
-
+signal pcIF_ID 				: std_logic_vector(7 downto 0);
+signal pcID_EX 				: std_logic_vector(7 downto 0);
+signal pcEX_MEM 			: std_logic_vector(7 downto 0);
+signal pcMEM_WB 			: std_logic_vector(7 downto 0);
 
 
 
@@ -231,8 +234,8 @@ begin
 	brReg0  	<= reg0;		
 	brReg1 	  	<= reg1;
 	brRegDest 	<= regDestMEM_WR; -- mudar para pegar do MEM/WB
-	brData 		<= "00000000" & immMEM_WB when(controle_MEM_WB(4 downto 0) = "00") else --LDI
-					memDataOutMEM_WB when (controle_MEM_WB(4 downto 0) = "01") else --LW
+	brData 		<= "00000000" & immMEM_WB when(controle_MEM_WB(4 downto 3) = "00") else --LDI
+					memDataOutMEM_WB when (controle_MEM_WB(4 downto 3) = "01") else --LW
 					ulaOutMEM_WB;
 	-- 00 LDI ...... 01 LW...... 10 & 11 ulaOut ---->> ATUALIZAR COM O CONTROLE JA TEM O SINAL
 	--ENABLE ESCRITA NO BR  		-- ADD : SUB : MULT							//		SW			//					ADDI : SUBI : MULTI					// LDI				//     LW
@@ -244,7 +247,7 @@ begin
 	
 					
 	--Ligando cabos da Memoria
-    memDataEnd  <= immID_EX;
+    memDataEnd  <= immEX_MEM;
     memDataIn   <= brOut0EX_MEM;
     memEnable	<= controle_EX_MEM(1);
     memToReg	<= controle_EX_MEM(10);
@@ -268,8 +271,8 @@ process(clock, reset)
 			
 			--ESTAGIO IF ID
 				--Alimentando redistradores de Pipeline--
-				IF_ID  	<= inst; -- Busca
-				
+				IF_ID  		<= inst; -- Busca
+				pcIF_ID		<= pc;
 			
 			--ESTAGIO ID EX
 				--Ligando o controle
@@ -288,7 +291,7 @@ process(clock, reset)
 	       		brOut1ID_EX   		<= brOut1;  
 				immID_EX		 	<= imm;
 				regDestID_EX		<= regDest;
-			
+				pcID_EX				<= pcIF_ID;
 			
 			--ESTAGIO EX MEM
 				--Passando o controle
@@ -301,12 +304,14 @@ process(clock, reset)
 				controle_EX_MEM(7 downto 6) <= "00";
 				controle_EX_MEM(9) <= '0';
 				controle_EX_MEM(10)<= controle_ID_EX(10);
-				controle_ID_EX(19 downto 11) <= "000000000";
+				controle_EX_MEM(19 downto 11) <= "000000000";
 				--outros regs
 				immEX_MEM	 		<= immID_EX;
 				brOut0EX_MEM		<= brOut0ID_EX;
 				ulaOutEX_MEM		<= ulaOut;
 				regDestEX_MEM		<= regDestID_EX;
+				pcEX_MEM			<= pcID_EX;
+				
 				
 			--ESTAGIO MEM WR
 				controle_MEM_WB(1) <= '0';
@@ -324,6 +329,7 @@ process(clock, reset)
 				memDataOutMEM_WB	<= memDataOut;
 				immMEM_WB			<= immEX_MEM;
 				regDestMEM_WR		<= regDestEX_MEM;
+				pcEX_MEM			<= pcID_EX;
 			--............................
 			
 
@@ -331,7 +337,7 @@ process(clock, reset)
 			if (ctl_jump = '1') then --JMP
 				pc <= imm;
 			elsif ((controle_ID_EX(0) = '1') and (ulaComp = '0')) or ((controle_ID_EX(9) = '1') and (ulaComp = '1')) then -- (0100 and 0) = BEQ ...ou... (0101 and 1) = BNE
-				pc <= pc + immID_EX;
+				pc <= pcID_EX + immID_EX;
 			else
 				pc <= pc + 1;
 			end if;
@@ -345,27 +351,34 @@ end process;
 memInst(0) <= 20x"B0401";
 memInst(1) <= 20x"B0204";
 memInst(2) <= 20x"B0302";
-memInst(3) <= 20x"00000";
 memInst(4) <= 20x"00000";
-memInst(5) <= 20x"4030D";
+memInst(5) <= 20x"00000";
 memInst(6) <= 20x"00000";
-memInst(7) <= 20x"00000";
+memInst(7) <= 20x"40310";
 memInst(8) <= 20x"00000";
-memInst(9) <= 20x"22406";
+memInst(9) <= 20x"00000";
 memInst(10) <= 20x"00000";
-memInst(11) <= 20x"06004";
-memInst(12) <= 20x"93701";
+memInst(11) <= 20x"22406";
+memInst(12) <= 20x"00000";
 memInst(13) <= 20x"00000";
 memInst(14) <= 20x"00000";
-memInst(15) <= 20x"07003";
-memInst(16) <= 20x"30005";
+memInst(15) <= 20x"06004";
+memInst(16) <= 20x"93701";
 memInst(17) <= 20x"00000";
-memInst(18) <= 20x"74003";
-memInst(19) <= 20x"6A003";
-memInst(20) <= (others => '0');
-memInst(21) <= (others => '0');
-memInst(22) <= (others => '0');
-memInst(23) <= (others => '0');
-memInst(24) <= (others => '0');
+memInst(18) <= 20x"00000";
+memInst(19) <= 20x"00000";
+memInst(20) <= 20x"07003";
+memInst(21) <= 20x"30006";
+memInst(22) <= 20x"00000";
+memInst(23) <= 20x"74003";
+memInst(24) <= 20x"00000";
+memInst(25) <= 20x"00000";
+memInst(26) <= 20x"00000";
+memInst(27) <= 20x"6A003";
+memInst(28) <= (others => '0');
+memInst(29) <= (others => '0');
+memInst(30) <= (others => '0');
+memInst(31) <= (others => '0');
+memInst(32) <= (others => '0');
 
 end behavior;
