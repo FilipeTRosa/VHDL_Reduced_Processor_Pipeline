@@ -1,6 +1,6 @@
 C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-Start time: 11:34:35 on Dec 10,2025
+Start time: 11:51:57 on Dec 10,2025
 vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -9,7 +9,7 @@ vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/Gi
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity controle
 -- Compiling architecture behavior of controle
-End time: 11:34:35 on Dec 10,2025, Elapsed time: 0:00:00
+End time: 11:51:57 on Dec 10,2025, Elapsed time: 0:00:00
 
 } {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
@@ -23,7 +23,7 @@ Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 
 } {} {}} C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-Start time: 11:34:35 on Dec 10,2025
+Start time: 11:51:57 on Dec 10,2025
 vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -32,11 +32,11 @@ vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/Gi
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity memoria
 -- Compiling architecture behavior of memoria
-End time: 11:34:35 on Dec 10,2025, Elapsed time: 0:00:00
+End time: 11:51:57 on Dec 10,2025, Elapsed time: 0:00:00
 
 } {} {}} C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-Start time: 11:34:35 on Dec 10,2025
+Start time: 11:51:58 on Dec 10,2025
 vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -45,11 +45,11 @@ vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/Gi
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity ula
 -- Compiling architecture behavior of ula
-End time: 11:34:35 on Dec 10,2025, Elapsed time: 0:00:00
+End time: 11:51:58 on Dec 10,2025, Elapsed time: 0:00:00
 
 } {} {}} C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-Start time: 11:34:35 on Dec 10,2025
+Start time: 11:51:57 on Dec 10,2025
 vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -58,7 +58,7 @@ vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/Gi
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity tb
 -- Compiling architecture behavior of tb
-End time: 11:34:35 on Dec 10,2025, Elapsed time: 0:00:00
+End time: 11:51:58 on Dec 10,2025, Elapsed time: 0:00:01
 
 } {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
@@ -72,7 +72,7 @@ Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 
 } {} {}} C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-Start time: 11:34:35 on Dec 10,2025
+Start time: 11:51:57 on Dec 10,2025
 vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -81,7 +81,7 @@ vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/Gi
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity bregistradores
 -- Compiling architecture behavior of bregistradores
-End time: 11:34:35 on Dec 10,2025, Elapsed time: 0:00:00
+End time: 11:51:57 on Dec 10,2025, Elapsed time: 0:00:00
 
 } {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/bregistradores.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
@@ -92,6 +92,19 @@ Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Loading package STD_LOGIC_UNSIGNED
 -- Compiling entity bregistradores
 -- Compiling architecture behavior of bregistradores
+
+} {} {}} C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd {1 {vcom -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+Start time: 11:51:57 on Dec 10,2025
+vcom -reportprogress 300 -work work -2008 -explicit C:/Users/Filipe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity processador_pipe
+-- Compiling architecture behavior of processador_pipe
+End time: 11:51:57 on Dec 10,2025, Elapsed time: 0:00:00
 
 } {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
