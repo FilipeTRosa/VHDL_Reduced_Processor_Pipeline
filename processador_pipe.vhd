@@ -23,14 +23,17 @@ signal imm			: std_logic_vector(7 downto 0);
 -- REGISTRADORES DE PIPELINE
 
 signal IF_ID				: std_logic_vector(19 downto 0);
-signal ID_EX    			: std_logic_vector(19 downto 0);
-signal EX_MEM   			: std_logic_vector(19 downto 0);
-signal MEM_WB   			: std_logic_vector(19 downto 0);
-signal controle_ID_EX    	: std_logic_vector(19 downto 0);
-signal controle_EX_MEM   	: std_logic_vector(19 downto 0);
-signal controle_MEM_WB   	: std_logic_vector(19 downto 0);
+--signal ID_EX    			: std_logic_vector(19 downto 0);
+--signal EX_MEM   			: std_logic_vector(19 downto 0);
+--IDsignal MEM_WB   			: std_logic_vector(19 downto 0);
+signal controle_ID_EX    	: std_logic_vector(10 downto 0);
+signal controle_EX_MEM   	: std_logic_vector(10 downto 0);
+signal controle_MEM_WB   	: std_logic_vector(10 downto 0);
 signal brOut0ID_EX   	 	: std_logic_vector (15 downto 0);
 signal brOut1ID_EX   		: std_logic_vector (15 downto 0); 
+signal regDestID_EX			: std_logic_vector(3 downto 0);
+signal regDestEX_MEM		: std_logic_vector(3 downto 0);
+signal regDestMEM_WR		: std_logic_vector(3 downto 0);
 signal immID_EX				: std_logic_vector(7 downto 0);
 signal immEX_MEM			: std_logic_vector(7 downto 0);
 signal brOut0EX_MEM  	 	: std_logic_vector (15 downto 0);
@@ -38,6 +41,13 @@ signal ulaOutEX_MEM   		: std_logic_vector(15 downto 0);
 signal ulaOutMEM_WB    		: std_logic_vector(15 downto 0);
 signal memDataOutMEM_WB 	: std_logic_vector (15 downto 0);
 signal immMEM_WB			: std_logic_vector(7 downto 0);
+signal pcIF_ID 				: std_logic_vector(7 downto 0);
+signal pcID_EX 				: std_logic_vector(7 downto 0);
+signal pcEX_MEM 			: std_logic_vector(7 downto 0);
+signal pcMEM_WB 			: std_logic_vector(7 downto 0);
+
+
+
 
 -- MEMORIA DE INSTRUCOES --
 type mem is array (integer range 0 to 255) of std_logic_vector(19 downto 0);
@@ -58,6 +68,7 @@ signal ctl_branchNe			: std_logic;
 
 component controle is
 	port(
+		clock				: in std_logic;
 		ctl_opcode			: in std_logic_vector(3 downto 0);
 		ctl_brEnable		: out std_logic; 
 		ctl_ulaOp			: out std_logic_vector (1 downto 0);
@@ -150,7 +161,8 @@ begin
 		ctl_memIn		=> ctl_memIn,	
 		ctl_branch		=> ctl_branch,
 		ctl_memToReg	=> ctl_memToReg,
-		ctl_branchNe	=> ctl_branchNe
+		ctl_branchNe	=> ctl_branchNe,
+		clock    	=> clock
     );
 
 
@@ -193,6 +205,7 @@ begin
     );
 
 	--separando a operação COM 20 bits	
+	inst <= memInst(conv_integer(PC));
 	opcode <= IF_ID(19 downto 16);
 	--tentando com when
 														-- ADD : SUB : MULT				   //   		-- BEQ e BNE			// 			 ADDI : SUBI : MULTI							//     	 SW
@@ -220,9 +233,9 @@ begin
 	--Ligando cabos do BR
 	brReg0  	<= reg0;		
 	brReg1 	  	<= reg1;
-	brRegDest 	<= regDest; -- mudar para pegar do MEM/WB
-	brData 		<= "00000000" & immMEM_WB when(controle_MEM_WB(4 downto 0) = "00") else --LDI
-					memDataOutMEM_WB when (controle_MEM_WB(4 downto 0) = "01") else --LW
+	brRegDest 	<= regDestMEM_WR; -- mudar para pegar do MEM/WB
+	brData 		<= "00000000" & immMEM_WB when(controle_MEM_WB(4 downto 3) = "00") else --LDI
+					memDataOutMEM_WB when (controle_MEM_WB(4 downto 3) = "01") else --LW
 					ulaOutMEM_WB;
 	-- 00 LDI ...... 01 LW...... 10 & 11 ulaOut ---->> ATUALIZAR COM O CONTROLE JA TEM O SINAL
 	--ENABLE ESCRITA NO BR  		-- ADD : SUB : MULT							//		SW			//					ADDI : SUBI : MULTI					// LDI				//     LW
@@ -234,7 +247,7 @@ begin
 	
 					
 	--Ligando cabos da Memoria
-    memDataEnd  <= immID_EX;
+    memDataEnd  <= immEX_MEM;
     memDataIn   <= brOut0EX_MEM;
     memEnable	<= controle_EX_MEM(1);
     memToReg	<= controle_EX_MEM(10);
@@ -247,7 +260,7 @@ begin
     		-- ULA IN 1 ..... 0 > brout1 ..... ou ..... 1 > ADDI : SUBI : MULTI	ATUALIZAR COM O CONTROLE JA TEM O SINAL
 
     --Ligando o controle
-    ctl_opcode <= opcode; --opcode no IFID
+    ctl_opcode <= inst(19 downto 16); --opcode no IFID
     				
     		
 process(clock, reset)
@@ -258,8 +271,8 @@ process(clock, reset)
 			
 			--ESTAGIO IF ID
 				--Alimentando redistradores de Pipeline--
-				IF_ID  	<= memInst(conv_integer(PC)); -- Busca
-				
+				IF_ID  		<= inst; -- Busca
+				pcIF_ID		<= pc;
 			
 			--ESTAGIO ID EX
 				--Ligando o controle
@@ -272,12 +285,13 @@ process(clock, reset)
 				controle_ID_EX(8) <= ctl_brEnable;
 				controle_ID_EX(9) <= ctl_branchNe;
 				controle_ID_EX(10)<= ctl_memToReg;
-				controle_ID_EX(19 downto 11) <= "000000000";
+				--controle_ID_EX(19 downto 11) <= "000000000";
 				-- pegando saida do BR
-				brOut0ID_EX   	 <= brOut0;
-	       		brOut1ID_EX   	 <= brOut1;  
-				immID_EX		 <= imm;
-			
+				brOut0ID_EX   		<= brOut0;
+	       		brOut1ID_EX   		<= brOut1;  
+				immID_EX		 	<= imm;
+				regDestID_EX		<= regDest;
+				pcID_EX				<= pcIF_ID;
 			
 			--ESTAGIO EX MEM
 				--Passando o controle
@@ -290,11 +304,14 @@ process(clock, reset)
 				controle_EX_MEM(7 downto 6) <= "00";
 				controle_EX_MEM(9) <= '0';
 				controle_EX_MEM(10)<= controle_ID_EX(10);
-				controle_ID_EX(19 downto 11) <= "000000000";
+				--controle_EX_MEM(19 downto 11) <= "000000000";
 				--outros regs
-				immEX_MEM	 	 <= immID_EX;
-				brOut0EX_MEM	 <= brOut0ID_EX;
-				ulaOutEX_MEM	 <= ulaOut;
+				immEX_MEM	 		<= immID_EX;
+				brOut0EX_MEM		<= brOut0ID_EX;
+				ulaOutEX_MEM		<= ulaOut;
+				regDestEX_MEM		<= regDestID_EX;
+				pcEX_MEM			<= pcID_EX;
+				
 				
 			--ESTAGIO MEM WR
 				controle_MEM_WB(1) <= '0';
@@ -306,22 +323,21 @@ process(clock, reset)
 				controle_MEM_WB(7 downto 6) <= "00";
 				controle_MEM_WB(9) <= '0';
 				controle_MEM_WB(10)<= controle_ID_EX(10);
-				controle_MEM_WB(19 downto 11) <= "000000000";
+				--controle_MEM_WB(19 downto 11) <= "000000000";
 				--Outros Regs
 				ulaOutMEM_WB		<= ulaOutEX_MEM;
 				memDataOutMEM_WB	<= memDataOut;
 				immMEM_WB			<= immEX_MEM;
+				regDestMEM_WR		<= regDestEX_MEM;
+				pcEX_MEM			<= pcID_EX;
 			--............................
 			
-			
-		
-			
-			
+
 			--incremento do PC....
 			if (ctl_jump = '1') then --JMP
 				pc <= imm;
-			elsif ((controle_ID_EX(0) = '0') and (ulaComp = '0')) or ((controle_ID_EX(9) = '1') and (ulaComp = '1')) then -- (0100 and 0) = BEQ ...ou... (0101 and 1) = BNE
-				pc <= pc + immID_EX;
+			elsif ((controle_ID_EX(0) = '1') and (ulaComp = '0')) or ((controle_ID_EX(9) = '1') and (ulaComp = '1')) then -- (0100 and 0) = BEQ ...ou... (0101 and 1) = BNE
+				pc <= pcID_EX + immID_EX;
 			else
 				pc <= pc + 1;
 			end if;
@@ -337,25 +353,32 @@ memInst(1) <= 20x"B0202";
 memInst(2) <= 20x"B0302";
 memInst(3) <= 20x"00000";
 memInst(4) <= 20x"00000";
-memInst(5) <= 20x"4030D";
-memInst(6) <= 20x"00000";
+memInst(5) <= 20x"00000";
+memInst(6) <= 20x"40310";
 memInst(7) <= 20x"00000";
 memInst(8) <= 20x"00000";
-memInst(9) <= 20x"22406";
-memInst(10) <= 20x"00000";
-memInst(11) <= 20x"06004";
-memInst(12) <= 20x"93701";
+memInst(9) <= 20x"00000";
+memInst(10) <= 20x"22406";
+memInst(11) <= 20x"00000";
+memInst(12) <= 20x"00000";
 memInst(13) <= 20x"00000";
-memInst(14) <= 20x"00000";
-memInst(15) <= 20x"07003";
-memInst(16) <= 20x"30003";
+memInst(14) <= 20x"06004";
+memInst(15) <= 20x"93701";
+memInst(16) <= 20x"00000";
 memInst(17) <= 20x"00000";
-memInst(18) <= 20x"74003";
-memInst(19) <= 20x"6A003";
-memInst(20) <= (others => '0');
-memInst(21) <= (others => '0');
-memInst(22) <= (others => '0');
-memInst(23) <= (others => '0');
-memInst(24) <= (others => '0');
+memInst(18) <= 20x"00000";
+memInst(19) <= 20x"07003";
+memInst(20) <= 20x"30006";
+memInst(21) <= 20x"00000";
+memInst(22) <= 20x"74003";
+memInst(23) <= 20x"00000";
+memInst(24) <= 20x"00000";
+memInst(25) <= 20x"00000";
+memInst(26) <= 20x"6A003";
+memInst(27) <= 20x"50208";
+memInst(29) <= (others => '0');
+memInst(30) <= (others => '0');
+memInst(31) <= (others => '0');
+memInst(32) <= (others => '0');
 
 end behavior;
