@@ -8,35 +8,15 @@ Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling entity bregistradores
 -- Compiling architecture behavior of bregistradores
 
-} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
+} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package std_logic_arith
 -- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity processador_pipe
--- Compiling architecture behavior of processador_pipe
-
-} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
-Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package std_logic_arith
--- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity controle
--- Compiling architecture behavior of controle
-
-} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
-Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package std_logic_arith
--- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity ula
--- Compiling architecture behavior of ula
+-- Compiling entity memoria
+-- Compiling architecture behavior of memoria
 
 } {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/tb.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
@@ -48,14 +28,34 @@ Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling entity tb
 -- Compiling architecture behavior of tb
 
-} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/memoria.vhd
+} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/ula.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package std_logic_arith
 -- Loading package STD_LOGIC_UNSIGNED
--- Compiling entity memoria
--- Compiling architecture behavior of memoria
+-- Compiling entity ula
+-- Compiling architecture behavior of ula
+
+} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/controle.vhd
+Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity controle
+-- Compiling architecture behavior of controle
+
+} {} {}} C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd {1 {vcom -work work -2008 -explicit C:/Users/lippe/Documents/GitHub/VHDL_Reduced_Processor_Pipeline/processador_pipe.vhd
+Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity processador_pipe
+-- Compiling architecture behavior of processador_pipe
 
 } {} {}}
